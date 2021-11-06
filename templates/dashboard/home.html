@@ -1,0 +1,1212 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>{{perfil.usuario.get_full_name}}</title>
+{% endblock title %}
+
+{% block style %}
+<style>
+    .custom-radio .custom-control-input:checked~.custom-control-label::after {
+        background-color: #97449e !important;
+        border: 2px solid #97449e !important;
+        border-radius: 15px;
+        color: #97449e !important;
+    }
+</style>
+{% endblock style %}
+
+
+{% block content %}
+<div class="clearfix1">
+    <div class="row justify-content-md-center">
+        <div class="col-lg-8 col-md-8 col-sm-12">
+            <h4 class="sb-title-1">Formularios </h4>
+            <p>A continuación contestarás los siguientes formularios para conocer el estado actual de
+                tu salud mental. Al finalizarlas tendremos los resultados inmediatamente.
+                ¡Vamos!</p>
+        </div>
+    </div>
+    <div class="row text-center">
+
+        <div class="col-lg-4 col-sm-6 col-xs-6">
+            <div class="card">
+                <div class="card-body">
+                    <img class="sb-img" src="{% static 'img/img1.png' %}" alt="">
+                    <h5 class="card-title">Cuestionario de Salud Mental Positiva de Lluch</h5>
+                    {% if is_sm %}
+                    <a href="#" class="btn btn-sm btn-unfv-color-completed" data-target="#staticBackdrop2">Completado <i
+                            class="fa fa-tachometer-alt"></i></a>
+                    {% else %}
+                    <span id="id_sa_mental"><a data-toggle="modal" data-topico='sa_mental' href="#"
+                            class="btn btn-sm btn-unfv-color-success primer_item" data-target="#staticBackdrop2">Iniciar
+                            Test <i class="fa fa-tachometer-alt"></i></a></span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-sm-6 col-xs-6">
+            <div class="card">
+                <div class="card-body">
+                    <img class="sb-img" src="{% static 'img/img2.png' %}" alt="">
+                    <h5 class="card-title">Escalas de Depresión Ansiedad y Estrés</h5>
+                    <span id="id_ae_depresion">
+                        {% if is_das %}
+                        <a href="#" class="btn btn-sm btn-unfv-color-completed"
+                            data-target="#staticBackdrop2">Completado <i class="fa fa-tachometer-alt"></i></a>
+                        {% else %}
+                        <a data-toggle="modal" data-topico='ae_depresion' href="#"
+                            class="btn btn-sm btn-unfv-color-success primer_item" data-target="#staticBackdrop3">Iniciar
+                            Test <i class="fa fa-tachometer-alt"></i></a>
+                        {% endif %}
+
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-6 col-xs-6">
+            <div class="card">
+                <div class="card-body">
+                    <img class="sb-img" src="{% static 'img/img3.png' %}" alt="">
+                    <h5 class="card-title">Escala de Apoyo Social Percibido (MSPSS)</h5>
+                    <span id="id_ap_social">
+                        {% if is_mspss %}
+                        <a href="#" class="btn btn-sm btn-unfv-color-completed"
+                            data-target="#staticBackdrop2">Completado <i class="fa fa-tachometer-alt"></i></a>
+                        {% else %}
+                        <a data-toggle="modal" data-topico='ap_social' href="#"
+                            class="btn btn-sm btn-unfv-color-success primer_item" data-target="#staticBackdrop4">Iniciar
+                            Test <i class="fa fa-tachometer-alt"></i></a>
+                        {% endif %}
+
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-6 col-xs-6">
+            <div class="card">
+                <div class="card-body">
+                    <img class="sb-img" src="{% static 'img/img4.png' %}" alt="">
+                    <h5 class="card-title">Escala de Asertividad de Rathus</h5>
+                    <span id="id_asertividad">
+                        {% if is_asert %}
+                        <a href="#" class="btn btn-sm btn-unfv-color-completed"
+                            data-target="#staticBackdrop2">Completado <i class="fa fa-tachometer-alt"></i></a>
+                        {% else %}
+                        <a data-toggle="modal" data-topico='asertividad' href="#"
+                            class="btn btn-sm btn-unfv-color-success primer_item" data-target="#staticBackdrop5">Iniciar
+                            Test <i class="fa fa-tachometer-alt"></i></a>
+                        {% endif %}
+
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-6 col-xs-6">
+            <div class="card">
+                <div class="card-body">
+                    <img class="sb-img" src="{% static 'img/img5.png' %}" alt="">
+                    <h5 class="card-title">Escala de violencia de pareja</h5>
+                    <span id="id_vi_pareja">
+                        {% if is_pareja %}
+                        <a href="#" class="btn btn-sm btn-unfv-color-completed"
+                            data-target="#staticBackdrop2">Completado <i class="fa fa-tachometer-alt"></i></a>
+                        {% else %}
+                        <a data-toggle="modal" data-topico='vi_pareja' href="#"
+                            class="btn btn-sm btn-unfv-color-success primer_item" data-target="#staticBackdrop6">Iniciar
+                            Test <i class="fa fa-tachometer-alt"></i></a>
+                        {% endif %}
+
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <audio controls>
+            <!--autoplay-->
+            <source
+                src="https://static-media-files-ianalytycs.sfo3.digitaloceanspaces.com/audio_videos/musicaRelajante.ogg"
+                type="audio/ogg">
+            <source
+                src="https://static-media-files-ianalytycs.sfo3.digitaloceanspaces.com/audio_videos/musicaRelajante.mp3"
+                type="audio/mpeg">
+        </audio>
+    </div>
+
+</div>
+
+
+
+
+
+<!-- Modals Ficha Sociodemográfica -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><b>FICHA SOCIODEMOGRÁFICA:</b></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+
+                <form method="POST" autocomplete="off" action="{% url 'ficha_sociodemografica' %}"
+                    id="ficha_sociodemografica">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="anio_ingreso">Año de ingreso:</label>
+                                <input type="number" class="form-control" name="anio_ingreso" id="anio_ingreso"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="anio_estudio_actual">Año de estudio actual:</label>
+                                <select class="form-control" name="anio_estudio_actual" id="anio_estudio_actual"
+                                    required>
+                                    <option value="">--------------</option>
+                                    <option value="anio1">1 año</option>
+                                    <option value="anio2">2 año</option>
+                                    <option value="anio3">3 año</option>
+                                    <option value="anio4">4 año</option>
+                                    <option value="anio5">5 año</option>
+                                    <option value="anio6">6 año</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="inlineRadio1">¿Es becario?</label> <br>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="is_becario" id="inlineRadio1"
+                                    value="true" required>
+                                <label class="form-check-label" for="inlineRadio1">Sí</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input ml-4" type="radio" name="is_becario" id="inlineRadio2"
+                                    value="false" required>
+                                <label class="form-check-label" for="inlineRadio2">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="facultad">Facultad:</label>
+                                <select class="form-control" id="facultad" name="facultad" required>
+                                    <option value="">--------------</option>
+                                    <option value="fac_administracion">Administración</option>
+                                    <option value="fac_arquitectura">Arquitectura y Urbanismo</option>
+                                    <option value="fac_economicas">Ciencias Económicas</option>
+                                    <option value="fac_financieras">Ciencias Financieras y Contables</option>
+                                    <option value="fac_matematicas">Ciencias Naturales y Matemáticas</option>
+                                    <option value="fac_sociales">Ciencias Sociales</option>
+                                    <option value="fac_derecho">Derecho y Ciencia Política</option>
+                                    <option value="fac_educacion">Educación</option>
+                                    <option value="fac_humanidades">Humanidades</option>
+                                    <option value="fac_civil">Ingeniería Civil</option>
+                                    <option value="fac_electronica">Ingeniería Electrónica e Informática</option>
+                                    <option value="fac_ambiental">Ingeniería Geográfica, Ambiental y Ecoturismo
+                                    </option>
+                                    <option value="fac_industrial">Ingeniería Industrial y de Sistemas</option>
+                                    <option value="fac_medicina">Medicina</option>
+                                    <option value="fac_alimentarias">Oceanografía, Pesquería, Ciencias Alimentarias
+                                        y Acuicultura</option>
+                                    <option value="fac_odontologia">Odontología</option>
+                                    <option value="fac_psicologia">Psicología</option>
+                                    <option value="fac_tecnologia">Tecnología Médica</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="escuela">Escuela:</label>
+                                <select class="form-control" id="escuela" name="escuela" required>
+                                    <option value="">--------------</option>
+                                </select>
+                                <small>Debe elegir antes la Facultad</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="inlineRadioSex">Sexo</label> <br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="sexo" id="inlineRadioSex"
+                                        value="mujer" required>
+                                    <label class="form-check-label" for="inlineRadioSex">Mujer</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input ml-4" type="radio" name="sexo" id="inlineRadioSex2"
+                                        value="hombre" required>
+                                    <label class="form-check-label" for="inlineRadioSex2">Hombre</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="genero">Género:</label>
+                                <select class="form-control" id="genero" name="genero" required>
+                                    <option value="">--------------</option>
+                                    <option value="heterosexual">Heterosexual</option>
+                                    <option value="homosexual">Homosexual</option>
+                                    <option value="lesbiana">Lesbiana</option>
+                                    <option value="gay">Gay</option>
+                                    <option value="transexual">Transexual</option>
+                                    <option value="bisexual">Bisexual</option>
+                                    <option value="intersexual">Intersexual</option>
+                                    <option value="queer">Queer</option>
+                                    <option value="otros">Otros</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="estado_civil">Estado civil:</label>
+                                <select class="form-control" id="estado_civil" name="estado_civil" required>
+                                    <option value="">--------------</option>
+                                    <option value="soltero">Soltero</option>
+                                    <option value="soltero_hijos">Soltero con hijos</option>
+                                    <option value="conviviente">Conviviente</option>
+                                    <option value="conviviente_hijos">Conviviente con hijos</option>
+                                    <option value="casado">Casado</option>
+                                    <option value="casado_hijos">Casado con hijos</option>
+                                    <option value="divorciado">Divorciado</option>
+                                    <option value="pareja_actual">Pareja actual</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5><b>Lugar de Nacimiento:</b></h5>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="departarmento_nacimiento">Departamento:</label>
+                                <select class="form-control" name="nacimiento_departamento"
+                                    id="departarmento_nacimiento" required>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="provincia_nacimiento">Provincia:</label>
+                                <select class="form-control" name="nacimiento_provincia" id="provincia_nacimiento"
+                                    required>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="distrito_nacimiento">Distrito:</label>
+                                <select class="form-control" name="nacimiento_distrito" id="distrito_nacimiento"
+                                    required>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h5><b>Lugar de Residencia:</b></h5>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="departarmento_residencia">Departamento:</label>
+                                <select class="form-control" name="residencia_departamento"
+                                    id="departarmento_residencia" required>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="provincia_residencia">Provincia:</label>
+                                <select class="form-control" name="residencia_provincia" id="provincia_residencia"
+                                    required>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="distrito_residencia">Distrito:</label>
+                                <select class="form-control" name="residencia_distrito" id="distrito_residencia"
+                                    required>
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="institucion_procedencia">Colegio de procedencia:</label>
+                                <select class="form-control" name="tipo_colegio" id="institucion_procedencia" required>
+                                    <option value="">--------------</option>
+                                    <option value="privado">Privado</option>
+                                    <option value="estatal">Estatal</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="nacionalidad">Nacionalidad:</label>
+                                <select class="form-control" name="nacionalidad" id="nacionalidad" required>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="tiempo_residencia">Tiempo de residencia (en años):</label>
+                                <input type="number" class="form-control" name="tiempo_lugar_residencia"
+                                    id="tiempo_residencia" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="religion">Religión:</label>
+                                <select class="form-control" name="religion" id="religion" required>
+                                    <option value="">--------------</option>
+                                    <option value="catolica">Católica</option>
+                                    <option value="adventista">Adventista</option>
+                                    <option value="agnostico">Agnóstico</option>
+                                    <option value="ateo">Ateo</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="nivel_socioeconomico">Nivel socioeconómico:</label>
+                                <select class="form-control" name="nivel_socioeconomico" id="nivel_socioeconomico"
+                                    required>
+                                    <option value="">--------------</option>
+                                    <option value="alto">Alto</option>
+                                    <option value="medio_alto">Medio/alto</option>
+                                    <option value="medio">Medio</option>
+                                    <option value="medio_bajo">Medio/bajo</option>
+                                    <option value="bajo">Bajo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group text-center">
+                                <label for="inlineRadioVivesSolo">¿Vives solo(a)?:</label> <br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="vives_solo"
+                                        id="inlineRadioVivesSolo" value="true" required>
+                                    <label class="form-check-label" for="inlineRadioVivesSolo">Sí</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input ml-4" type="radio" name="vives_solo"
+                                        id="inlineRadioVivesSolo2" value="false" required>
+                                    <label class="form-check-label" for="inlineRadioVivesSolo2">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="religion">¿En la situación de aislamiento vive con?</label>
+                                <select class="form-control" id="religion" name="vive_con" required>
+                                    <option value="">--------------</option>
+                                    <option value="solo">Solo (a)</option>
+                                    <option value="pareja">Con mi pareja</option>
+                                    <option value="familia">Con mi familia (padres y hermanos)</option>
+                                    <option value="amigos">Con amigos</option>
+                                    <option value="hermanos">Con mis hermanos</option>
+                                    <option value="parientes">Con parientes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label for="vive_actualmente">¿Con cuántas personas viven actualmente?
+                                    (contándote)</label>
+                                <input type="number" class="form-control" name="con_cuantos_vives" id="vive_actualmente"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <h5><b>SITUACIÓN LABORAL</b></h5>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="religion">Situación ocupacional:</label>
+                                <select class="form-control" id="religion" name="situacion_ocupacional" required>
+                                    <option value="">--------------</option>
+                                    <option value="contrato_fijo">Trabajo con contrato fijo</option>
+                                    <option value="contrato_temporal">Trabajo con contrato temporal</option>
+                                    <option value="independiente">Independiente</option>
+                                    <option value="sin_trabajo">Sin trabajo</option>
+                                    <option value="otro">Otro tipo de trabajo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="situacion_de_trabajo">Situación de trabajo:</label>
+                                <select class="form-control" id="situacion_de_trabajo" name="situacion_de_trabajo"
+                                    required>
+                                    <option value="">--------------</option>
+                                    <option value="no_trabajo">No trabajo</option>
+                                    <option value="parcial_en_casa">Tiempo parcial desde casa</option>
+                                    <option value="parcial_fuera_casa">Tiempo parcial fuera de casa</option>
+                                    <option value="completo_en_casa">Tiempo completo desde casa</option>
+                                    <option value="complejo_fuera_casa">Tiempo completo fuera de casa</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="voluntariado">Horas en voluntariados:</label>
+                                <input type="number" class="form-control" id="voluntariado"
+                                    name="horas_apoyo_voluntariado" required>
+                                <small>Cero si no hace voluntariado</small>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <span>Durante los 2 últimos meses ha tenido un problema:</span>
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="fisico">Físico (cuál):</label>
+                                <input type="text" class="form-control" name="problema_fisico" id="fisico"
+                                    maxlength="255">
+                                <small>Si no tuvo ninguno, dejarlo en blanco</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="psicologica">Psicológica (cuál):</label>
+                                <input type="text" class="form-control" id="psicologica" name="problema_psicologico"
+                                    maxlength="255">
+                                <small>Si no tuvo ninguno, dejarlo en blanco</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group text-center">
+                                <label for="inlineRadioAtencionPsicologica">En los últimos 3 meses tuvo una atención
+                                    psicológica:</label> <br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="tuvo_atencion_psicologica"
+                                        id="inlineRadioAtencionPsicologica" value="true" required>
+                                    <label class="form-check-label" for="inlineRadioAtencionPsicologica">Sí</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input ml-4" type="radio" name="tuvo_atencion_psicologica"
+                                        id="inlineRadioAtencionPsicologica2" value="false" required>
+                                    <label class="form-check-label" for="inlineRadioAtencionPsicologica2">No</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group text-center">
+                                <label for="inlineRadioCovid19">Presentaste síntomas de COVID-19:</label> <br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="sintomas_covid_19"
+                                        id="inlineRadioCovid19" value="true" required>
+                                    <label class="form-check-label" for="inlineRadioCovid19">Sí</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input ml-4" type="radio" name="sintomas_covid_19"
+                                        id="inlineRadioCovid192" value="false" required>
+                                    <label class="form-check-label" for="inlineRadioCovid192">No</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group text-center">
+                                <label for="inlineRadioPresentoCovid19">Presento algún familiar síntomas de
+                                    COVID-19:</label> <br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="familiar_sintomas_covid_19"
+                                        id="inlineRadioPresentoCovid19" value="true" required>
+                                    <label class="form-check-label" for="inlineRadioPresentoCovid19">Sí</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input ml-4" type="radio" name="familiar_sintomas_covid_19"
+                                        id="inlineRadioPresentoCovid192" value="false" required>
+                                    <label class="form-check-label" for="inlineRadioPresentoCovid192">No</label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="fallecimiento">Falleció algún:</label>
+                                <select class="form-control" id="fallecimiento" name="tuvo_fallecimiento" required>
+                                    <option value="">--------------</option>
+                                    <option value="familiar">Familiar</option>
+                                    <option value="amigo">Amigo</option>
+                                    <option value="conocido">Conocido</option>
+                                    <option value="ninguno">Ninguno</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="fallecimiento_tiempo">Si falleció, hace cuánto tiempo fue
+                                    (meses):</label>
+                                <input type="number" class="form-control" name="tiempo_de_fallecimiento"
+                                    id="fallecimiento_tiempo">
+                                <small>Si no es el caso, dejarlo en blanco.</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group text-center">
+
+                                <label for="inlineRadioClasesVirtuales">¿Consideras haberte adaptado a las clases
+                                    virtuales?:</label> <br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="adaptado_clases_virtuales"
+                                        id="inlineRadioClasesVirtuales" value="true" required>
+                                    <label class="form-check-label" for="inlineRadioClasesVirtuales">Sí</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input ml-4" type="radio" name="adaptado_clases_virtuales"
+                                        id="inlineRadioClasesVirtuales2" value="false" required>
+                                    <label class="form-check-label" for="inlineRadioClasesVirtuales2">No</label>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-sm btn-outline-unfv-color">Enviar ficha
+                            <i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modals Salud Mental -->
+<div class="modal fade" id="staticBackdrop2" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><b>Cuestionario de Salud Mental Positiva de Lluch:</b>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" class="topicoForm" id="sa_mental_form">
+                    {% csrf_token %}
+                    <div class="text-center">
+                        <span class="sb-title-tit" id="item_value_sa_mental"></span>
+                        <hr>
+                        <input id="sa_mental_item" type="text" name="item_topico" hidden>
+                        <input type="text" name="topico" value="sa_mental" hidden>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInlineTest2" value="1" name="sa_mental_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInlineTest2">Nunca</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline2Test2" value="2" name="sa_mental_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline2Test2">1 o 2 veces a la
+                                semana</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline3Test2" value="3" name="sa_mental_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline3Test2">1 vez a la semana</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline4Test2" value="4" name="sa_mental_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline4Test2">2 o 3 veces a la
+                                semana</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline5Test2" value="5" name="sa_mental_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline5Test2">Casi todos los
+                                días</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline6Test2" value="6" name="sa_mental_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline6Test2">Todos los días</label>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between">
+                        <div class="col-md-4">
+                            <div class="text-center mt-4">
+                                <a id-item="" id="id_item_sa_mental"
+                                    class="btn btn-sm btn-outline-unfv-color-next p_anterior">
+                                    <i class="fas fa-chevron-left"></i>
+                                    Pregunta anterior</a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-sm btn-outline-unfv-color-next">Siguiente pregunta
+                                    <i class="fas fa-chevron-right"></i> </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-4">
+                            <div class="text-center mt-4">
+                                <button class="btn btn-sm btn-unfv-color-completed" data-dismiss="modal"
+                                    aria-label="Close">
+                                    Guardar avance <i class="far fa-save"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modals Depresión, Ansiedad -->
+<div class="modal fade" id="staticBackdrop3" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><b>Escalas de Depresión Ansiedad y Estrés
+                        (DASS-21):</b>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" class="topicoForm" id="ae_depresion_form">
+                    {% csrf_token %}
+                    <div class="text-center">
+                        <span class="sb-title-tit" id="item_value_ae_depresion"></span>
+                        <hr>
+                        <input id="ae_depresion_item" type="text" name="item_topico" hidden>
+                        <input type="text" name="topico" value="ae_depresion" hidden>
+
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline1Test3" value="0" name="ae_depresion_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline1Test3">No</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline2Test3" value="1" name="ae_depresion_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline2Test3">Un poco</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline3Test3" value="2" name="ae_depresion_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline3Test3">Con regularidad</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline4Test3" value="3" name="ae_depresion_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline4Test3">Mucho</label>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between">
+                        <div class="col-md-4">
+                            <div class="text-center mt-4">
+                                <a id-item="" id="id_item_ae_depresion"
+                                    class="btn btn-sm btn-outline-unfv-color-next p_anterior">
+                                    <i class="fas fa-chevron-left"></i>
+                                    Pregunta anterior</a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-sm btn-outline-unfv-color-next">Siguiente pregunta
+                                    <i class="fas fa-chevron-right"></i> </button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-4">
+                            <div class="text-center mt-4">
+                                <button class="btn btn-sm btn-unfv-color-completed" data-dismiss="modal"
+                                    aria-label="Close">
+                                    Guardar avance <i class="far fa-save"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modals Apoyo Social Percibido -->
+<div class="modal fade" id="staticBackdrop4" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><b>Escala de Apoyo Social Percibido (MSPSS):</b></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" class="topicoForm" id="ap_social_form">
+                    {% csrf_token %}
+                    <div class="text-center">
+                        <span class="sb-title-tit" id="item_value_ap_social"></span>
+                        <hr>
+                        <input id="ap_social_item" type="text" name="item_topico" hidden>
+                        <input type="text" name="topico" value="ap_social" hidden>
+
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline1Test6" value="4" name="ap_social_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline1Test6">Muy de acuerdo</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline2Test6" value="3" name="ap_social_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline2Test6">De acuerdo</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline3Test6" value="2" name="ap_social_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline3Test6">En desacuerdo</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline4Test6" value="1" name="ap_social_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline4Test6">Muy en desacuerdo</label>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between">
+                        <div class="col-md-4">
+                            <div class="text-center mt-4">
+                                <a id-item="" id="id_item_ap_social"
+                                    class="btn btn-sm btn-outline-unfv-color-next p_anterior">
+                                    <i class="fas fa-chevron-left"></i>
+                                    Pregunta anterior</a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-sm btn-outline-unfv-color-next">Siguiente pregunta
+                                    <i class="fas fa-chevron-right"></i> </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-4">
+                            <div class="text-center mt-4">
+                                <button class="btn btn-sm btn-unfv-color-completed" data-dismiss="modal"
+                                    aria-label="Close">
+                                    Guardar avance <i class="far fa-save"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modals Sertividad de Rathus -->
+<div class="modal fade" id="staticBackdrop5" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><b>Escala de Asertividad de Rathus:</b></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" class="topicoForm" id="asertividad_form">
+                    {% csrf_token %}
+                    <div class="text-center">
+                        <span class="sb-title-tit" id="item_value_asertividad"></span>
+                        <hr>
+                        <input id="asertividad_item" type="text" name="item_topico" hidden>
+                        <input type="text" name="topico" value="asertividad" hidden>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline1Test7" value="3" name="asertividad_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline1Test7">Muy descriptivo a
+                                mí</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline2Test7" value="2" name="asertividad_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline2Test7">Bastante descriptivo a
+                                mí</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline3Test7" value="1" name="asertividad_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline3Test7">Algo descriptivo a
+                                mí</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline4Test7" value="-1" name="asertividad_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline4Test7">Algo raro en mí</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline5Test7" value="-2" name="asertividad_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline5Test7">Bastante extraño en
+                                mí</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline6Test7" value="-3" name="asertividad_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline6Test7">Muy extraño en mí</label>
+                        </div>
+                    </div>
+                    <div class="row justify-content-between">
+                        <div class="col-md-4">
+                            <div class="text-center mt-4">
+                                <a id-item="" id="id_item_asertividad"
+                                    class="btn btn-sm btn-outline-unfv-color-next p_anterior">
+                                    <i class="fas fa-chevron-left"></i>
+                                    Pregunta anterior</a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-sm btn-outline-unfv-color-next">Siguiente pregunta
+                                    <i class="fas fa-chevron-right"></i> </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-4">
+                            <div class="text-center mt-4">
+                                <button class="btn btn-sm btn-unfv-color-completed" data-dismiss="modal"
+                                    aria-label="Close">
+                                    Guardar avance <i class="far fa-save"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modals Violencia de Pareja -->
+<div class="modal fade" id="staticBackdrop6" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel"><b>Escala de violencia de pareja:</b></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" class="topicoForm" id="vi_pareja_form">
+                    {% csrf_token %}
+                    <div class="text-center">
+                        <span class="sb-title-tit" id="item_value_vi_pareja"></span>
+                        <hr>
+                        <input id="vi_pareja_item" type="text" name="item_topico" hidden>
+                        <input type="text" name="topico" value="vi_pareja" hidden>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline1Test8" value="1" name="vi_pareja_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline1Test8">Nunca</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline2Test8" value="2" name="vi_pareja_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline2Test8">Pocas veces</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline3Test8" value="3" name="vi_pareja_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline3Test8">A veces</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline4Test8" value="4" name="vi_pareja_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline4Test8">Muchas veces</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline5Test8" value="5" name="vi_pareja_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline5Test8">Siempre</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline ml-4 my-2">
+                            <input type="radio" id="customRadioInline6Test8" value="0" name="vi_pareja_value"
+                                class="custom-control-input" required>
+                            <label class="custom-control-label" for="customRadioInline6Test8">Nunca tuve pareja</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="text-center mt-4">
+                                <a id-item="" id="id_item_vi_pareja"
+                                    class="btn btn-sm btn-outline-unfv-color-next p_anterior">
+                                    <i class="fas fa-chevron-left"></i>
+                                    Pregunta anterior</a>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center mt-4">
+                                <button type="submit" class="btn btn-sm btn-outline-unfv-color-next">Siguiente pregunta
+                                    <i class="fas fa-chevron-right"></i> </button>
+                            </div>
+                        </div>
+                      
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-4">
+                            <div class="text-center mt-4">
+                                <button class="btn btn-sm btn-unfv-color-completed" data-dismiss="modal"
+                                    aria-label="Close">
+                                    Guardar avance <i class="far fa-save"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+{% block script %}
+{% if not is_ficha %}
+<script src="{% static 'dataforms.js' %}"></script>
+<script src="{% static 'fac_escuelas.js' %}"></script>
+{% endif %}
+
+<script>
+    $('.primer_item').on('click', function () {
+        let topico = $(this).attr("data-topico");
+        data = { 'topico': topico }
+        $.ajax({
+            url: "{% url 'primer_item' %}",
+            type: 'GET',
+            dataType: 'json', // added data type
+            data: data,
+            success: function (res) {
+                if (res.topico == 'sa_mental') {
+                    $('#item_value_sa_mental').empty();
+                    $('#sa_mental_item').val(res.id);
+                    $('#item_value_sa_mental').append(res.item);
+                } else if (res.topico == 'ae_depresion') {
+                    $('#item_value_ae_depresion').empty();
+                    $('#ae_depresion_item').val(res.id);
+                    $('#item_value_ae_depresion').append(res.item);
+                } else if (res.topico == 'ap_social') {
+                    $('#item_value_ap_social').empty();
+                    $('#ap_social_item').val(res.id);
+                    $('#item_value_ap_social').append(res.item);
+                } else if (res.topico == 'asertividad') {
+                    $('#item_value_asertividad').empty();
+                    $('#asertividad_item').val(res.id);
+                    $('#item_value_asertividad').append(res.item);
+                } else if (res.topico == 'vi_pareja') {
+                    $('#item_value_vi_pareja').empty();
+                    $('#vi_pareja_item').val(res.id);
+                    $('#item_value_vi_pareja').append(res.item);
+                }
+            }
+        });
+    });
+</script>
+
+<script>
+    $('.topicoForm').on('submit', function (e) {
+        e.preventDefault();
+        $form = $(this)
+        var formData = new FormData(this);
+        $.ajax({
+            url: '{% url "respuesta_test_usuario" %}',
+            type: 'POST',
+            data: formData,
+            success: function (res) {
+                if (res.topico == 'sa_mental') {
+                    $('#sa_mental_form')[0].reset();
+                    if (res.estado == false) {
+                        $('#staticBackdrop2').modal('hide');
+                        $("#id_sa_mental").empty();
+                        $("#id_sa_mental").append(`
+                        <a href="#" 
+                            class="btn btn-sm btn-unfv-color-completed" data-target="#staticBackdrop2">Completado <i
+                        class="fa fa-tachometer-alt"></i></a>
+                        `);
+                    } else {
+                        $('#item_value_sa_mental').empty();
+                        $('#item_value_sa_mental').append(res.item);
+                        $('#sa_mental_item').val(res.id);
+                        $('#id_item_sa_mental').attr("id-item", res.id_item_anterior);
+                    }
+                } else if (res.topico == 'ae_depresion') {
+                    $('#ae_depresion_form')[0].reset();
+                    if (res.estado == false) {
+                        $('#staticBackdrop3').modal('hide');
+                        $("#id_ae_depresion").empty();
+                        $("#id_ae_depresion").append(`
+                        <a href="#" 
+                            class="btn btn-sm btn-unfv-color-completed" data-target="#staticBackdrop2">Completado <i
+                        class="fa fa-tachometer-alt"></i></a>
+                        `);
+                    } else {
+                        $('#item_value_ae_depresion').empty();
+                        $('#item_value_ae_depresion').append(res.item);
+                        $('#ae_depresion_item').val(res.id);
+                        $('#id_item_ae_depresion').attr("id-item", res.id_item_anterior);
+                    }
+                } else if (res.topico == 'ap_social') {
+                    $('#ap_social_form')[0].reset();
+                    if (res.estado == false) {
+                        $('#staticBackdrop4').modal('hide');
+                        $("#id_ap_social").empty();
+                        $("#id_ap_social").append(`
+                        <a href="#" 
+                            class="btn btn-sm btn-unfv-color-completed" data-target="#staticBackdrop2">Completado <i
+                        class="fa fa-tachometer-alt"></i></a>
+                        `);
+                    } else {
+                        $('#item_value_ap_social').empty();
+                        $('#item_value_ap_social').append(res.item);
+                        $('#ap_social_item').val(res.id);
+                        $('#id_item_ap_social').attr("id-item", res.id_item_anterior);
+                    }
+                } else if (res.topico == 'asertividad') {
+                    $('#asertividad_form')[0].reset();
+                    if (res.estado == false) {
+                        $('#staticBackdrop5').modal('hide');
+                        $("#id_asertividad").empty();
+                        $("#id_asertividad").append(`
+                        <a href="#" 
+                            class="btn btn-sm btn-unfv-color-completed" data-target="#staticBackdrop2">Completado <i
+                        class="fa fa-tachometer-alt"></i></a>
+                        `);
+                    } else {
+                        $('#item_value_asertividad').empty();
+                        $('#item_value_asertividad').append(res.item);
+                        $('#asertividad_item').val(res.id);
+                        $('#id_item_asertividad').attr("id-item", res.id_item_anterior);
+                    }
+                } else if (res.topico == 'vi_pareja') {
+                    $('#vi_pareja_form')[0].reset();
+                    if (res.estado == false) {
+                        $('#staticBackdrop6').modal('hide');
+                        $("#id_vi_pareja").empty();
+                        $("#id_vi_pareja").append(`
+                        <a href="#" 
+                            class="btn btn-sm btn-unfv-color-completed" data-target="#staticBackdrop2">Completado <i
+                        class="fa fa-tachometer-alt"></i></a>
+                        `);
+                    } else {
+                        $('#item_value_vi_pareja').empty();
+                        $('#item_value_vi_pareja').append(res.item);
+                        $('#vi_pareja_item').val(res.id);
+                        $('#id_item_vi_pareja').attr("id-item", res.id_item_anterior);
+                    }
+                }
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+    });
+</script>
+
+<script>
+    $('.p_anterior').on('click', function () {
+        let item_anterior = $(this).attr("id-item");
+        if (item_anterior) {
+            $.ajax({
+                url: "{% url 'item_anterior_topico' %}",
+                type: 'GET',
+                dataType: 'json', // added data type
+                data: { 'item_anterior': item_anterior },
+                success: function (res) {
+                    console.log(res);
+                    if (res.topico == 'sa_mental') {
+                        $('#item_value_sa_mental').empty();
+                        $('#sa_mental_item').val(res.id);
+                        $('#item_value_sa_mental').append(res.item);
+                        $(`input[name=sa_mental_value][value=${res.respuesta}]`).prop("checked", true);
+                    } else if (res.topico == 'ae_depresion') {
+                        $('#item_value_ae_depresion').empty();
+                        $('#ae_depresion_item').val(res.id);
+                        $('#item_value_ae_depresion').append(res.item);
+                        $(`input[name=ae_depresion_value][value=${res.respuesta}]`).prop("checked", true);
+                    } else if (res.topico == 'ap_social') {
+                        $('#item_value_ap_social').empty();
+                        $('#ap_social_item').val(res.id);
+                        $('#item_value_ap_social').append(res.item);
+                        $(`input[name=ap_social_value][value=${res.respuesta}]`).prop("checked", true);
+                    } else if (res.topico == 'asertividad') {
+                        $('#item_value_asertividad').empty();
+                        $('#asertividad_item').val(res.id);
+                        $('#item_value_asertividad').append(res.item);
+                        $(`input[name=asertividad_value][value=${res.respuesta}]`).prop("checked", true);
+                    } else if (res.topico == 'vi_pareja') {
+                        $('#item_value_vi_pareja').empty();
+                        $('#vi_pareja_item').val(res.id);
+                        $('#item_value_vi_pareja').append(res.item);
+                        $(`input[name=vi_pareja_value][value=${res.respuesta}]`).prop("checked", true);
+                    }
+                }
+            });
+        }
+    });
+</script>
+{% endblock script %}
